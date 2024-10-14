@@ -23,23 +23,21 @@ OP_ARIT: '+' | '-' | '*' | '/' | '^' | '%';
 // Operadores Relacionais
 OP_REL: '=' | '!=' | '<=' | '>=' | '>' | '<';
 
-// Operadores Lógicos
-NEG: '!';              // Negação
-E: '&&';               // E
-OU: '||';              // OU
+// Operadores Booleanos
+OP_BOOL: '!' | '&&' | '||';           
 
 // Operador de Atribuição
-ATRIB: '<-';           // Atribuição
+OP_ATRIB: '<-';           // Atribuição
 
 // Operador de Concatenação de Cadeias de Caracteres
-CONCAT: '++';          // Concatenação de strings
+OP_CONCAT: '++';          // Concatenação de strings
 
 // Delimitadores
 ABRIR_CH: '{';         // Delimitador de abertura
 FECHAR_CH: '}';        // Delimitador de fechamento
 ABRIR_PAR: '(';        // Delimitador de abertura de parênteses
 FECHAR_PAR: ')';       // Delimitador de fechamento de parênteses
-QUEBRA_DE_LINHA: '.';       // Quebra de linha
+DELIMITADOR: '.';       // Quebra de linha
 
 // Identificadores (nomes de variáveis, funções, etc.)
 ID: LETRA (DIGITO | LETRA)*;
