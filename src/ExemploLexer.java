@@ -9,7 +9,6 @@ public class ExemploLexer {
     private static final String RESET = "\u001B[0m"; // Resetar para a cor padrão
 
     public static void main(String[] args) {
-        // Usando user.dir para construir o caminho do arquivo
         String filename = "Codigo.txt";
         try {
             CharStream input = CharStreams.fromFileName(filename);
@@ -38,3 +37,4 @@ public class ExemploLexer {
         }
     }
 }
+

@@ -13,6 +13,7 @@ FUNCAO: 'func';        // Palavra-chave de função
 ENTRADA: 'input';      // Comando de entrada (removidos os parênteses)
 SAIDA: 'print';        // Comando de saída (removidos os parênteses)
 NULL: '_';             // Valor nulo          
+PRINCIPAL: 'PRINCIPAL';// Palavra-chave de função principal
 
 // Tipos de Dados
 TIPO: 'int' | 'float' | 'double' | 'char' | 'str' | 'bool' | 'void'; 
@@ -37,7 +38,7 @@ ABRIR_CH: '{';         // Delimitador de abertura
 FECHAR_CH: '}';        // Delimitador de fechamento
 ABRIR_PAR: '(';        // Delimitador de abertura de parênteses
 FECHAR_PAR: ')';       // Delimitador de fechamento de parênteses
-DELIMITADOR: '.';       // Quebra de linha
+DELIMITADOR: '.';      // Delimitador de instruções
 
 // Identificadores (nomes de variáveis, funções, etc.)
 ID: LETRA (DIGITO | LETRA)*;
@@ -57,6 +58,9 @@ fragment DIGITO: [0-9];
 
 // Ignorar espaços em branco
 WS: [ \r\t\n]+ -> skip; // Ignorar espaços em branco
+
+// Reconhecedor de comentários
+COMENT: '#' ~[\r\n]* -> skip;
 
 // Qualquer caractere que não tenha sido reconhecido
 ErrorChar: . ;

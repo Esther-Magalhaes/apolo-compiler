@@ -1,15 +1,24 @@
-int numero <- 5.
-int a <- 0.
-int b <- 1.
-int soma <- a + b.
-int contador <- 3.
+func int fibonaci(int numero){
+	int a <- 0.
+	int b <- 1.
+	int soma <- a + b.
+	int contador <- 3.
 
-while (contador <= numero) {
-    int temp <- a + b.
-    a <- b.
-    b <- temp.
-    soma <- soma + b.
-    contador <- contador + 1.
+	while (contador <= numero) {
+    		int temp <- a + b.
+    		a <- b.
+    		b <- temp.
+    		soma <- soma + b.
+    		contador <- contador + 1.
+	}.
+
+    return soma.
 }.
 
-print("A soma dos primeiros " ++ numero ++ " termos da sequência de Fibonacci é: " ++ soma).
+func int PRINCIPAL() {
+    int numero <- 10@.
+    int resultado <- fibonaci(numero).
+    print("A soma dos primeiros " ++ numero ++ " termos da sequência de Fibonacci é: " ++ resultado).
+    return 0.
+}.
+

@@ -1,10 +1,14 @@
-int n <- 5.
-int fatorial <- 1.
-
-while (n > 0) {
-    fatorial <- fatorial * n.
-    n <- n - 1.
+func int fatorial(int n) {
+    if (n <= 1) {
+        return 1.
+    } else {
+        return n * fatorial(n - 1).
+    }
 }.
 
-print("O resultado do fatorial é: " ++ fatorial).
-
+func int PRINCIPAL() {
+    int numero <- 12.
+    int resultado <- fatorial(numero).
+    print("O fatorial do número " ++ numero ++ "é: " ++ resultado).
+    return 0.
+}.
