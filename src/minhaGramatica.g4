@@ -1,5 +1,33 @@
 grammar minhaGramatica;
 
+
+//Regras do parser
+programa       : funcao* EOF ;
+funcao         : FUNCAO tipo ID ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH ;
+parametros     : parametro (',' parametro)* ;
+parametro      : tipo ID ;
+declaracoes    : (declaracao_var DELIMITADOR)* ;
+declaracao_var : tipo ID OP_ATRIB expressao ;
+comandos       : comando* ;
+comando        : atribuicao DELIMITADOR
+               | condicional
+               | loop
+               | chamada_funcao DELIMITADOR
+               | retorno DELIMITADOR ;
+atribuicao     : ID OP_ATRIB expressao ;
+condicional    : SE ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH (SENAO ABRIR_CH comandos FECHAR_CH)? ;
+loop           : ENQUANTO ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH ;
+chamada_funcao : ID ABRIR_PAR argumentos? FECHAR_PAR ;
+retorno        : RETORNAR expressao ;
+argumentos     : expressao (',' expressao)* ;
+expressao      : termo (OP_ARIT termo)* ;
+termo          : fator (OP_REL fator)* ;
+fator          : ID
+               | NUM
+               | VALOR_BOOL
+               | STRING_LITERAL
+               | ABRIR_PAR expressao FECHAR_PAR ;
+
 // Tokens específicos (Palavras-chave, Operadores, Delimitadores)
 
 // Palavras-chave
