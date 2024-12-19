@@ -27,9 +27,10 @@ atualizacao    : atribuicao ;
 chamada_funcao : ID ABRIR_PAR argumentos? FECHAR_PAR ;
 retorno        : RETORNAR expressao ;
 argumentos     : expressao (',' expressao)* ;
-expressao      : termo ((OP_ARIT | OP_CONCAT) termo)* ;
+expressao      : termo ((OP_ARIT | OP_CONCAT | OP_BOOL) termo)* ;
 termo          : fator (OP_REL fator)* ;
-fator          : ID
+fator          : OP_BOOL_NEG fator 
+               | ID
                | NUM
                | VALOR_BOOL
                | STRING_LITERAL
@@ -62,7 +63,8 @@ OP_ARIT: '+' | '-' | '*' | '/' | '^' | '%';
 OP_REL: '=' | '!=' | '<=' | '>=' | '>' | '<';
 
 // Operadores Booleanos
-OP_BOOL: '!' | '&&' | '||';           
+OP_BOOL: '&&' | '||';     
+OP_BOOL_NEG: '!';      
 
 // Operador de Atribuição
 OP_ATRIB: '<-';           // Atribuição
@@ -81,7 +83,7 @@ DELIMITADOR: '.';      // Delimitador de instruções
 ID: LETRA (DIGITO | LETRA)*;
 
 // Números inteiros ou decimais
-NUM: DIGITO+ (',' DIGITO+)?;
+NUM: ('-'? DIGITO+ (',' DIGITO+)?);
 
 // Literais booleanos
 VALOR_BOOL: 'true' | 'false'; // Literais booleanos

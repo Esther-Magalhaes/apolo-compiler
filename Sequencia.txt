@@ -1,24 +1,23 @@
-func int fibonaci(int numero){
-	int a <- 0.
-	int b <- 1.
-	int soma <- a + b.
-	int contador <- 3.
+func int fibonacci(int numero){
+    int a <- 0.
+    int b <- 1.
+    int soma <- a + b.
+    int contador <- 3.
 
-	for (int i <- 0. i <= 10. i <- i + 1) {
-    		int temp <- a + b.
-    		a <- b.
-    		b <- temp.
-    		soma <- soma + b.
-    		contador <- contador + 1.
-	}.
+    for (int i <- 3. i <= numero. i <- i + 1) {
+        int temp <- a + b.
+        a <- b.
+        b <- temp.
+        soma <- soma + b.
+        contador <- contador + 1.
+    }.
 
     return soma.
 }.
 
 func int PRINCIPAL() {
     int numero <- 10.
-    int resultado <- fibonaci(numero).
+    int resultado <- fibonacci(numero).
     print("A soma dos primeiros " ++ numero ++ " termos da sequência de Fibonacci é: " ++ resultado).
     return 0.
 }.
-
