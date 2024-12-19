@@ -1,37 +1,49 @@
 import java.io.IOException;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.gui.TreeViewer;
+import javax.swing.*;
+import java.util.Arrays;
+import java.awt.BorderLayout;
+
 
 public class ExemploLexer {
-    // Código de escape ANSI para texto vermelho
-    private static final String RED = "\u001B[31m";
-    private static final String RESET = "\u001B[0m"; // Resetar para a cor padrão
-
     public static void main(String[] args) {
         String filename = "Codigo.txt";
         try {
+            // Lê o arquivo de entrada
             CharStream input = CharStreams.fromFileName(filename);
+
+            // Cria o lexer e o parser
             minhaGramaticaLexer lexer = new minhaGramaticaLexer(input);
-            Token token;
-            int contadorErros = 0;
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            minhaGramaticaParser parser = new minhaGramaticaParser(tokens);
 
-            while (!lexer._hitEOF) {
-                token = lexer.nextToken();
+            // Chama a regra principal da gramática
+            ParseTree ast = parser.programa();
 
-                // Checa se o token é do tipo 'ErrorChar'
-                if (token.getType() == minhaGramaticaLexer.ErrorChar) { 
-                    System.out.println(RED + "Erro! Lexema inválido: " + token.getText() + "\nLinha: " + token.getLine() + "\n" + RESET);
-                    contadorErros++;
-                } else {
-                    System.out.println("Token: " + token.toString());
-                    System.out.println("   Lexema: " + token.getText());
-                    System.out.println("   Tipo: " + lexer.getVocabulary().getDisplayName(token.getType()) + "\n");
-                }
-            }
+            // Exibir a árvore em uma interface gráfica
+            TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), ast);
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.add(viewer, BorderLayout.CENTER);
 
-            // Imprime o total de erros encontrados
-            System.out.println("\n----- TOTAL DE ERROS ENCONTRADOS: " + contadorErros);
+            // Adiciona a barra de rolagem
+            JScrollPane scrollPane = new JScrollPane(panel);
+
+            // Cria o JFrame para exibir a árvore
+            JFrame frame = new JFrame("Árvore Sintática");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.add(scrollPane);
+            frame.setSize(700, 600);
+            frame.setVisible(true);
+
+
+            // Imprime a árvore sintática no terminal
+            // System.out.println(ast.toStringTree(parser));
+
         } catch (IOException e) {
             e.printStackTrace();
         }

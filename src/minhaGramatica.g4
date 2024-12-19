@@ -2,31 +2,40 @@ grammar minhaGramatica;
 
 
 //Regras do parser
-programa       : funcao* EOF ;
-funcao         : FUNCAO tipo ID ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH ;
+programa       : funcao* principal EOF ;
+principal      : FUNCAO TIPO 'PRINCIPAL' ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR? ;
+funcao         : FUNCAO TIPO ID ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR?;
 parametros     : parametro (',' parametro)* ;
-parametro      : tipo ID ;
+parametro      : TIPO ID ;
 declaracoes    : (declaracao_var DELIMITADOR)* ;
-declaracao_var : tipo ID OP_ATRIB expressao ;
+declaracao_var : TIPO ID OP_ATRIB expressao ;
 comandos       : comando* ;
 comando        : atribuicao DELIMITADOR
+               | declaracao_var DELIMITADOR
                | condicional
                | loop
                | chamada_funcao DELIMITADOR
-               | retorno DELIMITADOR ;
+               | retorno DELIMITADOR 
+               | saida DELIMITADOR ;
 atribuicao     : ID OP_ATRIB expressao ;
 condicional    : SE ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH (SENAO ABRIR_CH comandos FECHAR_CH)? ;
-loop           : ENQUANTO ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH ;
+loop           : ENQUANTO ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH DELIMITADOR
+               | PARA ABRIR_PAR inicializacao? DELIMITADOR expressao? DELIMITADOR atualizacao? FECHAR_PAR ABRIR_CH comandos FECHAR_CH DELIMITADOR ;
+inicializacao  : declaracao_var
+               | atribuicao ;
+atualizacao    : atribuicao ;
 chamada_funcao : ID ABRIR_PAR argumentos? FECHAR_PAR ;
 retorno        : RETORNAR expressao ;
 argumentos     : expressao (',' expressao)* ;
-expressao      : termo (OP_ARIT termo)* ;
+expressao      : termo ((OP_ARIT | OP_CONCAT) termo)* ;
 termo          : fator (OP_REL fator)* ;
 fator          : ID
                | NUM
                | VALOR_BOOL
                | STRING_LITERAL
-               | ABRIR_PAR expressao FECHAR_PAR ;
+               | ABRIR_PAR expressao FECHAR_PAR 
+               | chamada_funcao;
+saida          : SAIDA ABRIR_PAR expressao FECHAR_PAR ;
 
 // Tokens específicos (Palavras-chave, Operadores, Delimitadores)
 
