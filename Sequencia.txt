@@ -21,3 +21,44 @@ func int PRINCIPAL() {
     print("A soma dos primeiros " ++ numero ++ " termos da sequência de Fibonacci é: " ++ resultado).
     return 0.
 }.
+
+
+
+
+
+
+
+
+func int PRINCIPAL() {
+    int numero <- 10.
+    
+    # 1. Apenas if
+    if (numero > 10) {
+        print("O número é maior que 10").
+    }
+
+    # 2. if e else
+    if (numero = 10) {
+        print("O número é igual a 10").
+    } else {
+        print("O número é menor que 10").
+    }
+
+    # 3. if e elf
+    if (numero > 10) {
+        print("O número é maior que 10").
+    } elf (numero = 10) {
+        print("O número é igual a 10").
+    }
+
+    # 4. if, elf e else
+    if (numero > 10) {
+        print("O número é maior que 10").
+    } elf (numero = 10) {
+        print("O número é igual a 10").
+    } else {
+        print("O número é menor que 10").
+    }
+
+    return 0.
+}.

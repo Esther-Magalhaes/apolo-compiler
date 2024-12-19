@@ -18,7 +18,15 @@ comando        : atribuicao DELIMITADOR
                | retorno DELIMITADOR 
                | saida DELIMITADOR ;
 atribuicao     : ID OP_ATRIB expressao ;
-condicional    : SE ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH (SENAO ABRIR_CH comandos FECHAR_CH)? ;
+
+
+condicional : SE ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH
+              (SENAO_SE ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH)*
+              (SENAO ABRIR_CH comandos FECHAR_CH)?;
+
+
+
+
 loop           : ENQUANTO ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH DELIMITADOR
                | PARA ABRIR_PAR inicializacao? DELIMITADOR expressao? DELIMITADOR atualizacao? FECHAR_PAR ABRIR_CH comandos FECHAR_CH DELIMITADOR ;
 inicializacao  : declaracao_var
