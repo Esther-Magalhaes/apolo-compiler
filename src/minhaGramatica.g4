@@ -2,42 +2,42 @@ grammar minhaGramatica;
 
 
 //Regras do parser
-programa       : funcao* principal EOF ;
-principal      : FUNCAO TIPO 'PRINCIPAL' ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR? ;
-funcao         : FUNCAO TIPO ID ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR?;
-parametros     : parametro (',' parametro)* ;
-parametro      : TIPO ID ;
-declaracoes    : (declaracao_var DELIMITADOR)* ;
-declaracao_var : TIPO ID OP_ATRIB expressao ;
-comandos       : comando* ;
-comando        : atribuicao DELIMITADOR
-               | declaracao_var DELIMITADOR
-               | condicional
-               | loop
-               | chamada_funcao DELIMITADOR
-               | retorno DELIMITADOR 
-               | saida DELIMITADOR ;
-atribuicao     : ID OP_ATRIB expressao ;
-condicional : SE ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH
-              (SENAO_SE ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH)*
-              (SENAO ABRIR_CH comandos FECHAR_CH)?;
-loop           : ENQUANTO ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH DELIMITADOR
-               | PARA ABRIR_PAR inicializacao? DELIMITADOR expressao? DELIMITADOR atualizacao? FECHAR_PAR ABRIR_CH comandos FECHAR_CH DELIMITADOR ;
-inicializacao  : declaracao_var
-               | atribuicao ;
-atualizacao    : atribuicao ;
-chamada_funcao : ID ABRIR_PAR argumentos? FECHAR_PAR ;
-retorno        : RETORNAR expressao ;
-argumentos     : expressao (',' expressao)* ;
-expressao      : termo ((OP_ARIT | OP_CONCAT | OP_BOOL) termo)* ;
-termo          : fator (OP_REL fator)* ;
-fator          : OP_BOOL_NEG fator 
-               | ID
-               | NUM
-               | VALOR_BOOL
-               | STRING_LITERAL
-               | ABRIR_PAR expressao FECHAR_PAR 
-               | chamada_funcao;
+programa       : funcao* principal EOF #NInicio;
+principal      : FUNCAO TIPO 'PRINCIPAL' ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR? #NPrincipal;
+funcao         : FUNCAO TIPO ID ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR? #NFuncao;
+parametros     : parametro (',' parametro)* #NParametros;
+parametro      : TIPO ID #NParametro;
+declaracoes    : (declaracao_var DELIMITADOR)* #NDeclaracoes;
+declaracao_var : TIPO ID OP_ATRIB expressao #NDeclaracaoVar;
+comandos       : comando* #NComandos;
+comando        : atribuicao DELIMITADOR #NComandoAtribuicao
+               | declaracao_var DELIMITADOR #NComandoDeclaracaoVar
+               | condicional #NComandoCondicional
+               | loop #NComandoLoop
+               | chamada_funcao DELIMITADOR #NComandoChamadaFuncao
+               | retorno DELIMITADOR #NComandoRetorno
+               | saida DELIMITADOR #NComandoSaida;
+atribuicao     : ID OP_ATRIB expressao #NAtribuicao;
+condicional    : SE ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH
+               (SENAO_SE ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH)* 
+               (SENAO ABRIR_CH comandos FECHAR_CH)? #NCondicional;
+loop           : ENQUANTO ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHAR_CH DELIMITADOR #NLoopEnquanto
+               | PARA ABRIR_PAR inicializacao? DELIMITADOR expressao? DELIMITADOR atualizacao? FECHAR_PAR ABRIR_CH comandos FECHAR_CH DELIMITADOR #NLoopPara;
+inicializacao  : declaracao_var #NInicializacaoDeclaracaoVar
+               | atribuicao #NInicializacaoAtribuicao;
+atualizacao    : atribuicao #NAtualizacao;
+chamada_funcao : ID ABRIR_PAR argumentos? FECHAR_PAR #NChamadaFuncao;
+retorno        : RETORNAR expressao #NRetorno;
+argumentos     : expressao (',' expressao)* #NArgumentos;
+expressao      : termo ((OP_ARIT | OP_CONCAT | OP_BOOL) termo)* #NExpressao;
+termo          : fator (OP_REL fator)* #NTermo;
+fator          : OP_BOOL_NEG fator #NFatorNegacao
+               | ID #NFatorID
+               | NUM #NFatorNumero
+               | VALOR_BOOL #NFatorValorBool
+               | STRING_LITERAL #NFatorString
+               | ABRIR_PAR expressao FECHAR_PAR #NFatorExpressao
+               | chamada_funcao #NFatorChamadaFuncao;
 saida          : SAIDA ABRIR_PAR expressao FECHAR_PAR ;
 
 // Tokens específicos (Palavras-chave, Operadores, Delimitadores)
