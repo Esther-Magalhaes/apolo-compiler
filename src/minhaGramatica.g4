@@ -2,7 +2,7 @@ grammar minhaGramatica;
 
 
 //Regras do parser
-programa       : funcao* principal EOF ;
+programa       : funcao* principal EOF #NInicio;
 principal      : FUNCAO TIPO 'PRINCIPAL' ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR? ;
 funcao         : FUNCAO TIPO ID ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR?;
 parametros     : parametro (',' parametro)* ;
@@ -14,7 +14,7 @@ comando        : atribuicao DELIMITADOR
                | declaracao_var DELIMITADOR
                | condicional
                | loop
-               | chamada_funcao DELIMITADOR
+               | chamada_funcao DELIMITADOR 
                | retorno DELIMITADOR 
                | saida DELIMITADOR ;
 atribuicao     : ID OP_ATRIB expressao #NAtribuicao;
