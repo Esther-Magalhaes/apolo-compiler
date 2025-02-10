@@ -35,6 +35,7 @@ public class AnalisadorSemantico {
 
     // Método para executar o lexer e o parser sobre o arquivo de entrada
     private static minhaGramaticaParser getParser(String fileName) {
+        minhaGramaticaParser parser = null;
         try {
             CharStream input = CharStreams.fromFileName(fileName);
             minhaGramaticaLexer lexer = new minhaGramaticaLexer(input);
