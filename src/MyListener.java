@@ -113,10 +113,33 @@ private String getTipoDaExpressao(minhaGramaticaParser.FatorContext ctx) {
 
     // Gerenciamento de escopo ao entrar em uma função
     @Override
-    public void enterFuncao(minhaGramaticaParser.FuncaoContext ctx) {
-        novoEscopo();
+public void enterFuncao(minhaGramaticaParser.FuncaoContext ctx) {
+    String nomeFuncao = ctx.ID().getText();
+    String tipoRetorno = ctx.TIPO() != null ? ctx.TIPO().getText() : "void";
+
+    // Verifica se a função já foi declarada
+    if (tabelaSimbolos.containsKey(nomeFuncao)) {
+        System.out.println("Erro: Função '" + nomeFuncao + "' já declarada.");
+    } else {
+        // Adiciona a função à tabela de símbolos
+        tabelaSimbolos.put(nomeFuncao, tipoRetorno);
     }
 
+    // Cria um novo escopo para os parâmetros da função
+    novoEscopo();
+
+    // Adiciona os parâmetros ao escopo da função
+    if (ctx.parametros() != null) {
+        for (minhaGramaticaParser.ParametroContext param : ctx.parametros().parametro()) {
+            String nomeParametro = param.ID().getText();
+            String tipoParametro = param.TIPO().getText();
+            escopos.peek().put(nomeParametro, tipoParametro);
+        }
+    }
+}
+
+
+    
     // Gerenciamento de escopo ao sair de uma função
     @Override
     public void exitFuncao(minhaGramaticaParser.FuncaoContext ctx) {
@@ -125,12 +148,15 @@ private String getTipoDaExpressao(minhaGramaticaParser.FatorContext ctx) {
 
     // Verifica chamadas de função
     @Override
-    public void exitChamada_funcao(minhaGramaticaParser.Chamada_funcaoContext ctx) {
-        String funcao = ctx.ID().getText();
-        if (!varNoEscopo(funcao)) {
-            System.out.println("Erro: Função '" + funcao + "' não declarada.");
-        }
+public void exitChamada_funcao(minhaGramaticaParser.Chamada_funcaoContext ctx) {
+    String funcao = ctx.ID().getText();
+
+    // Verifica se a função foi declarada
+    if (!tabelaSimbolos.containsKey(funcao)) {
+        System.out.println("Erro: Função '" + funcao + "' não declarada.");
     }
+}
+
 
     // Retorna a tabela de símbolos
     public Map<String, String> getTabelaSimbolos() {
