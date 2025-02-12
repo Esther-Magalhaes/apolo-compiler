@@ -81,8 +81,6 @@ ABRIR_PAR: '(';        // Delimitador de abertura de parênteses
 FECHAR_PAR: ')';       // Delimitador de fechamento de parênteses
 DELIMITADOR: '.';      // Delimitador de instruções
 
-// Identificadores (nomes de variáveis, funções, etc.)
-ID: LETRA (DIGITO | LETRA)*;
 
 // Números inteiros ou decimais
 NUM: ('-'? DIGITO+ (',' DIGITO+)?);
@@ -92,6 +90,9 @@ VALOR_BOOL: 'true' | 'false'; // Literais booleanos
 
 // Reconhecedor de strings
 STRING_LITERAL: '"' (~["\\] | '\\' .)* '"';
+
+// Identificadores (nomes de variáveis, funções, etc.)
+ID: LETRA (DIGITO | LETRA)*;
 
 // Fragmentos
 fragment LETRA: [a-zA-Z];

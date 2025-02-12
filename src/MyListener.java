@@ -144,31 +144,23 @@ public class MyListener extends minhaGramaticaBaseListener {
         }
         return "undefined";
     }
-private String getTipoDaExpressao(minhaGramaticaParser.FatorContext ctx) {
-    System.out.println("AENTROU1 ");
-    
+private String getTipoDaExpressao(minhaGramaticaParser.FatorContext ctx) {    
     if (ctx.NUM() != null) {
         String num = ctx.NUM().getText();
-        System.out.println("AENTROU2 - NUM: " + num);
         return num.contains(",") ? "float" : "int"; // Determina se é float ou int com base no formato
     }
-    System.out.println("AHOOIIIIIIIIII: " + ctx );
     
     if (ctx.VALOR_BOOL() != null) {
-        System.out.println("AENTROU3 - VALOR_BOOL: " + ctx.VALOR_BOOL().getText());
         String valor = ctx.VALOR_BOOL().getText();
         if (valor.equals("true") || valor.equals("false")) {
             return "bool";
         }
     } // Se for um valor booleano
 
-    System.out.println("AENTROU4 - SEM MATCH");
     if (ctx.STRING_LITERAL() != null) return "str"; // Se for uma string literal
     
-    System.out.println("AENTROU5 - SEM MATCH");
     if (ctx.ID() != null) return getTipoDaVariavel(ctx.ID().getText()); // Se for uma variável, obtém o tipo dela
     
-    System.out.println("AENTROU6 - RETORNANDO UNDEFINED");
     return "undefined"; // Caso contrário
 }
 
