@@ -7,8 +7,7 @@ func int fatorial(int n) {
 }.
 
 func int PRINCIPAL() {
-    int numero <- 12.
-    int resultado <- fatorial(numero).
+    bool numero <- true.
     print("O fatorial do número " ++ numero ++ "é: " ++ resultado).
     return 0.
 }.

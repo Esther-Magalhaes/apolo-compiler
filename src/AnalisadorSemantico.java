@@ -28,6 +28,7 @@ public class AnalisadorSemantico {
             //percorre a ast com a nossa implementação do listener
             walker.walk(listener, ast);
             
+            
             // Imprimir a tabela de símbolos
             System.out.println(listener.getTabelaSimbolos().toString());
         }
