@@ -202,35 +202,36 @@ public class MyListener extends minhaGramaticaBaseListener {
                 return false;
         }
     }
-
-                                
     @Override
-    public void enterNExpressao(minhaGramaticaParser.NExpressaoContext ctx) {
-        String tipoEsperado = null;
-    
+    public void enterNExpressao(minhaGramaticaParser.NExpressaoContext ctx) {    
+        // Verificar se a expressão contém o operador de concatenação (++)
+        boolean concat = ctx.getText().contains("++");
+
         // Percorre todos os filhos da expressão
         for (int i = 0; i < ctx.getChildCount(); i++) {
             ParseTree child = ctx.getChild(i);
-    
+            
             if (child instanceof minhaGramaticaParser.TermoContext) {
                 minhaGramaticaParser.TermoContext termo = (minhaGramaticaParser.TermoContext) child;
                 String tipoTermo = null;  // Tipo do termo atual
     
                 for (int j = 0; j < termo.getChildCount(); j++) {
                     ParseTree termoChild = termo.getChild(j);
-    
+                    
                     if (termoChild instanceof minhaGramaticaParser.FatorContext) {
                         minhaGramaticaParser.FatorContext fator = (minhaGramaticaParser.FatorContext) termoChild;
-    
+                        
                         for (int k = 0; k < fator.getChildCount(); k++) {
                             ParseTree fatorChild = fator.getChild(k);
     
                             if (fatorChild instanceof TerminalNode) {
                                 TerminalNode terminalNode = (TerminalNode) fatorChild;
-                                if (terminalNode.getSymbol().getType() == minhaGramaticaParser.ID) {
-                                    String id = terminalNode.getText();
     
-                                    // Verifica se o ID está no escopo
+                                // Se for uma expressão de concatenação (++) e o fator for um ID, verifica se está declarado
+                                if (concat && terminalNode.getSymbol().getType() == minhaGramaticaParser.ID) {
+                                    String id = terminalNode.getText();
+                                    
+                                    // Verifica se a variável foi declarada antes de ser utilizada
                                     if (!varNoEscopo(id)) {
                                         System.out.println(BLUE + "Entrou na regra: " + RESET + "enterNExpressao (" + ctx.getText() + ")");
                                         throw new RuntimeException("\n" + YELLOW + "Erro: Variável '" + id + "' não declarada." + RESET + "\n");
@@ -240,70 +241,14 @@ public class MyListener extends minhaGramaticaBaseListener {
                                     if (tabelaSimbolos.containsKey(id)) {
                                         tipoTermo = tabelaSimbolos.get(id);  // Pega o tipo da variável
                                     } else {
-                                        // Se a variável não estiver na tabela, a adicionamos com um tipo padrão
-                                        System.out.println(BLUE + "Variável '" + id + "' não encontrada na tabela de símbolos. Adicionando à tabela." + RESET);
-                                        
-                                        // Defina o tipo da variável conforme o contexto (aqui, exemplo fictício como "int", ajuste conforme necessário)
-                                        tipoTermo = "int";  // Exemplo: A variável é do tipo int, mas isso pode ser ajustado conforme o tipo real do contexto
-                                        
-                                        // Adiciona a variável à tabela de símbolos
+                                        tipoTermo = "int";  // Exemplo de tipo padrão
                                         tabelaSimbolos.put(id, tipoTermo);
-                                        
-                                        // Se precisar de uma mensagem de confirmação, adicione
                                         System.out.println("Variável '" + id + "' adicionada à tabela de símbolos com tipo: " + tipoTermo + RESET);
                                     }
                                 }
-                                // Tratamento para literals (constantes)
-                                else if (terminalNode.getSymbol().getType() == minhaGramaticaParser.NUM) {
-                                    tipoTermo = "int";  // Ou float, dependendo do tipo numérico
-                                } else if (terminalNode.getSymbol().getType() == minhaGramaticaParser.STRING_LITERAL) {
-                                    tipoTermo = "str";
-                                } else if (terminalNode.getSymbol().getType() == minhaGramaticaParser.VALOR_BOOL) {
-                                    tipoTermo = "bool";  // Tratamento para valores booleanos
-                                } else if (terminalNode.getSymbol().getType() == minhaGramaticaParser.STRING_LITERAL) {
-                                String literal = terminalNode.getText();
-
-                                // Se a variável for do tipo 'char', verifica se é um caractere único entre aspas simples
-                                if (tipoEsperado != null && tipoEsperado.equals("char")) {
-                                    // Verifica se o literal tem exatamente 3 caracteres (aspas simples + 1 caractere + aspas simples)
-                                    if (literal.length() == 3 && literal.charAt(0) == '\"' && literal.charAt(2) == '\"') {
-                                        tipoTermo = "char";  // Considera como char
-                                    } else {
-                                        throw new RuntimeException("\n" + YELLOW + "Erro: Literal char inválido. Esperado um caractere único entre aspas simples." + RESET + "\n");
-                                    }
-                                } else {
-                                    // Caso contrário, trata como uma string comum
-                                    tipoTermo = "str";
-                                }
-                            }
-    
-                                // Se o tipo do termo for diferente do tipo esperado, lança erro
-                                if (tipoEsperado != null && !tipoEsperado.equals(tipoTermo)) {
-                                    throw new RuntimeException("\n" + YELLOW + "Erro: Tipos incompatíveis na expressão: esperado '" + tipoEsperado + "', mas encontrado '" + tipoTermo + "'" + RESET + "\n");
-                                }
-    
-                                // Atualiza o tipo esperado para o próximo termo ou operação
-                                tipoEsperado = tipoTermo;
                             }
                         }
                     }
-                }
-            }
-    
-            // Caso a expressão esteja sendo utilizada em um parâmetro, ou outro contexto
-            if (child instanceof minhaGramaticaParser.ParametroContext) {
-                minhaGramaticaParser.ParametroContext parametro = (minhaGramaticaParser.ParametroContext) child;
-                String id = parametro.getText();
-                
-                // Verifica se a variável foi declarada antes de ser passada como parâmetro
-                if (!varNoEscopo(id)) {
-                    System.out.println(BLUE + "Entrou na regra de parâmetro: " + RESET + "enterNExpressao (" + ctx.getText() + ")");
-                    throw new RuntimeException("\n" + YELLOW + "Erro: Variável '" + id + "' não declarada como parâmetro." + RESET + "\n");
-                }
-                
-                // Se necessário, adicione à tabela de símbolos, conforme a lógica do seu compilador
-                if (!tabelaSimbolos.containsKey(id)) {
-                    tabelaSimbolos.put(id, "tipoPadrao");  // Ajuste conforme o tipo esperado
                 }
             }
         }
