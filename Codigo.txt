@@ -7,6 +7,6 @@ func int fatorial(int n) {
 }.
 
 func int PRINCIPAL() {
-    int bool numero <- 0.
-    return "texto".
+    int bool numero <- 2.
+    return 0.
 }.
