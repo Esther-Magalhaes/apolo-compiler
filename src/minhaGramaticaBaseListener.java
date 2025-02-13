@@ -28,25 +28,25 @@ public class minhaGramaticaBaseListener implements minhaGramaticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrincipal(minhaGramaticaParser.PrincipalContext ctx) { }
+	@Override public void enterNPrincipal(minhaGramaticaParser.NPrincipalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrincipal(minhaGramaticaParser.PrincipalContext ctx) { }
+	@Override public void exitNPrincipal(minhaGramaticaParser.NPrincipalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncao(minhaGramaticaParser.FuncaoContext ctx) { }
+	@Override public void enterNFuncao(minhaGramaticaParser.NFuncaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncao(minhaGramaticaParser.FuncaoContext ctx) { }
+	@Override public void exitNFuncao(minhaGramaticaParser.NFuncaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -88,25 +88,25 @@ public class minhaGramaticaBaseListener implements minhaGramaticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNDeclaracaoVar(minhaGramaticaParser.NDeclaracaoVarContext ctx) { }
+	@Override public void enterNDeclaracaoValor(minhaGramaticaParser.NDeclaracaoValorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNDeclaracaoVar(minhaGramaticaParser.NDeclaracaoVarContext ctx) { }
+	@Override public void exitNDeclaracaoValor(minhaGramaticaParser.NDeclaracaoValorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNComandos(minhaGramaticaParser.NComandosContext ctx) { }
+	@Override public void enterComandos(minhaGramaticaParser.ComandosContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNComandos(minhaGramaticaParser.NComandosContext ctx) { }
+	@Override public void exitComandos(minhaGramaticaParser.ComandosContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -184,13 +184,13 @@ public class minhaGramaticaBaseListener implements minhaGramaticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterChamada_funcao(minhaGramaticaParser.Chamada_funcaoContext ctx) { }
+	@Override public void enterNChamada_funcao(minhaGramaticaParser.NChamada_funcaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitChamada_funcao(minhaGramaticaParser.Chamada_funcaoContext ctx) { }
+	@Override public void exitNChamada_funcao(minhaGramaticaParser.NChamada_funcaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
