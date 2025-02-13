@@ -3,13 +3,13 @@ grammar minhaGramatica;
 
 //Regras do parser
 programa       : funcao* principal EOF #NInicio;
-principal      : FUNCAO TIPO 'PRINCIPAL' ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR? ;
-funcao         : FUNCAO TIPO ID ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR?;
+principal      : FUNCAO TIPO 'PRINCIPAL' ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR? #NPrincipal; 
+funcao         : FUNCAO TIPO ID ABRIR_PAR parametros? FECHAR_PAR ABRIR_CH declaracoes comandos FECHAR_CH DELIMITADOR? #NFuncao;
 parametros     : parametro (',' parametro)* ;
 parametro      : TIPO ID ;
 declaracoes    : (declaracao_var DELIMITADOR)* ;
-declaracao_var : TIPO ID OP_ATRIB expressao #NDeclaracaoVar;
-comandos       : comando* #NComandos;
+declaracao_var : TIPO ID OP_ATRIB expressao #NDeclaracaoValor;
+comandos       : comando*;
 comando        : atribuicao DELIMITADOR
                | declaracao_var DELIMITADOR
                | condicional
@@ -26,18 +26,18 @@ loop           : ENQUANTO ABRIR_PAR expressao FECHAR_PAR ABRIR_CH comandos FECHA
 inicializacao  : declaracao_var
                | atribuicao ;
 atualizacao    : atribuicao ;
-chamada_funcao : ID ABRIR_PAR argumentos? FECHAR_PAR ;
+chamada_funcao : ID ABRIR_PAR argumentos? FECHAR_PAR #NChamada_funcao;
 retorno        : RETORNAR expressao ;
 argumentos     : expressao (',' expressao)* ;
 expressao      : termo ((OP_ARIT | OP_CONCAT | OP_BOOL) termo)* #NExpressao;
 termo          : fator (OP_REL fator)* ;
 fator          : OP_BOOL_NEG fator 
-               | ID
+               | ID 
                | NUM
                | VALOR_BOOL
                | STRING_LITERAL
                | ABRIR_PAR expressao FECHAR_PAR 
-               | chamada_funcao;
+               | chamada_funcao ;
 saida          : SAIDA ABRIR_PAR expressao FECHAR_PAR ;
 
 // Tokens específicos (Palavras-chave, Operadores, Delimitadores)
@@ -81,8 +81,6 @@ ABRIR_PAR: '(';        // Delimitador de abertura de parênteses
 FECHAR_PAR: ')';       // Delimitador de fechamento de parênteses
 DELIMITADOR: '.';      // Delimitador de instruções
 
-// Identificadores (nomes de variáveis, funções, etc.)
-ID: LETRA (DIGITO | LETRA)*;
 
 // Números inteiros ou decimais
 NUM: ('-'? DIGITO+ (',' DIGITO+)?);
@@ -92,6 +90,9 @@ VALOR_BOOL: 'true' | 'false'; // Literais booleanos
 
 // Reconhecedor de strings
 STRING_LITERAL: '"' (~["\\] | '\\' .)* '"';
+
+// Identificadores (nomes de variáveis, funções, etc.)
+ID: LETRA (DIGITO | LETRA)*;
 
 // Fragmentos
 fragment LETRA: [a-zA-Z];

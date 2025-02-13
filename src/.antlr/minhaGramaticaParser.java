@@ -19,8 +19,8 @@ public class minhaGramaticaParser extends Parser {
 		T__0=1, ENQUANTO=2, PARA=3, SE=4, SENAO=5, SENAO_SE=6, RETORNAR=7, FUNCAO=8, 
 		ENTRADA=9, SAIDA=10, NULL=11, PRINCIPAL=12, TIPO=13, OP_ARIT=14, OP_REL=15, 
 		OP_BOOL=16, OP_BOOL_NEG=17, OP_ATRIB=18, OP_CONCAT=19, ABRIR_CH=20, FECHAR_CH=21, 
-		ABRIR_PAR=22, FECHAR_PAR=23, DELIMITADOR=24, ID=25, NUM=26, VALOR_BOOL=27, 
-		STRING_LITERAL=28, WS=29, COMENT=30, ErrorChar=31;
+		ABRIR_PAR=22, FECHAR_PAR=23, DELIMITADOR=24, NUM=25, VALOR_BOOL=26, STRING_LITERAL=27, 
+		ID=28, WS=29, COMENT=30, ErrorChar=31;
 	public static final int
 		RULE_programa = 0, RULE_principal = 1, RULE_funcao = 2, RULE_parametros = 3, 
 		RULE_parametro = 4, RULE_declaracoes = 5, RULE_declaracao_var = 6, RULE_comandos = 7, 
@@ -51,8 +51,8 @@ public class minhaGramaticaParser extends Parser {
 			null, null, "ENQUANTO", "PARA", "SE", "SENAO", "SENAO_SE", "RETORNAR", 
 			"FUNCAO", "ENTRADA", "SAIDA", "NULL", "PRINCIPAL", "TIPO", "OP_ARIT", 
 			"OP_REL", "OP_BOOL", "OP_BOOL_NEG", "OP_ATRIB", "OP_CONCAT", "ABRIR_CH", 
-			"FECHAR_CH", "ABRIR_PAR", "FECHAR_PAR", "DELIMITADOR", "ID", "NUM", "VALOR_BOOL", 
-			"STRING_LITERAL", "WS", "COMENT", "ErrorChar"
+			"FECHAR_CH", "ABRIR_PAR", "FECHAR_PAR", "DELIMITADOR", "NUM", "VALOR_BOOL", 
+			"STRING_LITERAL", "ID", "WS", "COMENT", "ErrorChar"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -176,6 +176,18 @@ public class minhaGramaticaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class PrincipalContext extends ParserRuleContext {
+		public PrincipalContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_principal; }
+	 
+		public PrincipalContext() { }
+		public void copyFrom(PrincipalContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class NPrincipalContext extends PrincipalContext {
 		public TerminalNode FUNCAO() { return getToken(minhaGramaticaParser.FUNCAO, 0); }
 		public TerminalNode TIPO() { return getToken(minhaGramaticaParser.TIPO, 0); }
 		public TerminalNode PRINCIPAL() { return getToken(minhaGramaticaParser.PRINCIPAL, 0); }
@@ -193,10 +205,7 @@ public class minhaGramaticaParser extends Parser {
 			return getRuleContext(ParametrosContext.class,0);
 		}
 		public TerminalNode DELIMITADOR() { return getToken(minhaGramaticaParser.DELIMITADOR, 0); }
-		public PrincipalContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_principal; }
+		public NPrincipalContext(PrincipalContext ctx) { copyFrom(ctx); }
 	}
 
 	public final PrincipalContext principal() throws RecognitionException {
@@ -204,6 +213,7 @@ public class minhaGramaticaParser extends Parser {
 		enterRule(_localctx, 2, RULE_principal);
 		int _la;
 		try {
+			_localctx = new NPrincipalContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(51);
@@ -259,6 +269,18 @@ public class minhaGramaticaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class FuncaoContext extends ParserRuleContext {
+		public FuncaoContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_funcao; }
+	 
+		public FuncaoContext() { }
+		public void copyFrom(FuncaoContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class NFuncaoContext extends FuncaoContext {
 		public TerminalNode FUNCAO() { return getToken(minhaGramaticaParser.FUNCAO, 0); }
 		public TerminalNode TIPO() { return getToken(minhaGramaticaParser.TIPO, 0); }
 		public TerminalNode ID() { return getToken(minhaGramaticaParser.ID, 0); }
@@ -276,10 +298,7 @@ public class minhaGramaticaParser extends Parser {
 			return getRuleContext(ParametrosContext.class,0);
 		}
 		public TerminalNode DELIMITADOR() { return getToken(minhaGramaticaParser.DELIMITADOR, 0); }
-		public FuncaoContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_funcao; }
+		public NFuncaoContext(FuncaoContext ctx) { copyFrom(ctx); }
 	}
 
 	public final FuncaoContext funcao() throws RecognitionException {
@@ -287,6 +306,7 @@ public class minhaGramaticaParser extends Parser {
 		enterRule(_localctx, 4, RULE_funcao);
 		int _la;
 		try {
+			_localctx = new NFuncaoContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(66);
@@ -494,21 +514,21 @@ public class minhaGramaticaParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class NDeclaracaoVarContext extends Declaracao_varContext {
+	public static class NDeclaracaoValorContext extends Declaracao_varContext {
 		public TerminalNode TIPO() { return getToken(minhaGramaticaParser.TIPO, 0); }
 		public TerminalNode ID() { return getToken(minhaGramaticaParser.ID, 0); }
 		public TerminalNode OP_ATRIB() { return getToken(minhaGramaticaParser.OP_ATRIB, 0); }
 		public ExpressaoContext expressao() {
 			return getRuleContext(ExpressaoContext.class,0);
 		}
-		public NDeclaracaoVarContext(Declaracao_varContext ctx) { copyFrom(ctx); }
+		public NDeclaracaoValorContext(Declaracao_varContext ctx) { copyFrom(ctx); }
 	}
 
 	public final Declaracao_varContext declaracao_var() throws RecognitionException {
 		Declaracao_varContext _localctx = new Declaracao_varContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_declaracao_var);
 		try {
-			_localctx = new NDeclaracaoVarContext(_localctx);
+			_localctx = new NDeclaracaoValorContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(100);
@@ -534,25 +554,16 @@ public class minhaGramaticaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ComandosContext extends ParserRuleContext {
-		public ComandosContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_comandos; }
-	 
-		public ComandosContext() { }
-		public void copyFrom(ComandosContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class NComandosContext extends ComandosContext {
 		public List<ComandoContext> comando() {
 			return getRuleContexts(ComandoContext.class);
 		}
 		public ComandoContext comando(int i) {
 			return getRuleContext(ComandoContext.class,i);
 		}
-		public NComandosContext(ComandosContext ctx) { copyFrom(ctx); }
+		public ComandosContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_comandos; }
 	}
 
 	public final ComandosContext comandos() throws RecognitionException {
@@ -560,13 +571,12 @@ public class minhaGramaticaParser extends Parser {
 		enterRule(_localctx, 14, RULE_comandos);
 		int _la;
 		try {
-			_localctx = new NComandosContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(108);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 33563804L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 268444828L) != 0)) {
 				{
 				{
 				setState(105);
@@ -1076,16 +1086,25 @@ public class minhaGramaticaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class Chamada_funcaoContext extends ParserRuleContext {
+		public Chamada_funcaoContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_chamada_funcao; }
+	 
+		public Chamada_funcaoContext() { }
+		public void copyFrom(Chamada_funcaoContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class NChamada_funcaoContext extends Chamada_funcaoContext {
 		public TerminalNode ID() { return getToken(minhaGramaticaParser.ID, 0); }
 		public TerminalNode ABRIR_PAR() { return getToken(minhaGramaticaParser.ABRIR_PAR, 0); }
 		public TerminalNode FECHAR_PAR() { return getToken(minhaGramaticaParser.FECHAR_PAR, 0); }
 		public ArgumentosContext argumentos() {
 			return getRuleContext(ArgumentosContext.class,0);
 		}
-		public Chamada_funcaoContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_chamada_funcao; }
+		public NChamada_funcaoContext(Chamada_funcaoContext ctx) { copyFrom(ctx); }
 	}
 
 	public final Chamada_funcaoContext chamada_funcao() throws RecognitionException {
@@ -1093,6 +1112,7 @@ public class minhaGramaticaParser extends Parser {
 		enterRule(_localctx, 28, RULE_chamada_funcao);
 		int _la;
 		try {
+			_localctx = new NChamada_funcaoContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(197);
@@ -1550,7 +1570,7 @@ public class minhaGramaticaParser extends Parser {
 		"=>\u0003\u000e\u0007\u0000>@\u0005\u0015\u0000\u0000?A\u0005\u0018\u0000"+
 		"\u0000@?\u0001\u0000\u0000\u0000@A\u0001\u0000\u0000\u0000A\u0003\u0001"+
 		"\u0000\u0000\u0000BC\u0005\b\u0000\u0000CD\u0005\r\u0000\u0000DE\u0005"+
-		"\u0019\u0000\u0000EG\u0005\u0016\u0000\u0000FH\u0003\u0006\u0003\u0000"+
+		"\u001c\u0000\u0000EG\u0005\u0016\u0000\u0000FH\u0003\u0006\u0003\u0000"+
 		"GF\u0001\u0000\u0000\u0000GH\u0001\u0000\u0000\u0000HI\u0001\u0000\u0000"+
 		"\u0000IJ\u0005\u0017\u0000\u0000JK\u0005\u0014\u0000\u0000KL\u0003\n\u0005"+
 		"\u0000LM\u0003\u000e\u0007\u0000MO\u0005\u0015\u0000\u0000NP\u0005\u0018"+
@@ -1558,12 +1578,12 @@ public class minhaGramaticaParser extends Parser {
 		"\u0001\u0000\u0000\u0000QV\u0003\b\u0004\u0000RS\u0005\u0001\u0000\u0000"+
 		"SU\u0003\b\u0004\u0000TR\u0001\u0000\u0000\u0000UX\u0001\u0000\u0000\u0000"+
 		"VT\u0001\u0000\u0000\u0000VW\u0001\u0000\u0000\u0000W\u0007\u0001\u0000"+
-		"\u0000\u0000XV\u0001\u0000\u0000\u0000YZ\u0005\r\u0000\u0000Z[\u0005\u0019"+
+		"\u0000\u0000XV\u0001\u0000\u0000\u0000YZ\u0005\r\u0000\u0000Z[\u0005\u001c"+
 		"\u0000\u0000[\t\u0001\u0000\u0000\u0000\\]\u0003\f\u0006\u0000]^\u0005"+
 		"\u0018\u0000\u0000^`\u0001\u0000\u0000\u0000_\\\u0001\u0000\u0000\u0000"+
 		"`c\u0001\u0000\u0000\u0000a_\u0001\u0000\u0000\u0000ab\u0001\u0000\u0000"+
 		"\u0000b\u000b\u0001\u0000\u0000\u0000ca\u0001\u0000\u0000\u0000de\u0005"+
-		"\r\u0000\u0000ef\u0005\u0019\u0000\u0000fg\u0005\u0012\u0000\u0000gh\u0003"+
+		"\r\u0000\u0000ef\u0005\u001c\u0000\u0000fg\u0005\u0012\u0000\u0000gh\u0003"+
 		"\"\u0011\u0000h\r\u0001\u0000\u0000\u0000ik\u0003\u0010\b\u0000ji\u0001"+
 		"\u0000\u0000\u0000kn\u0001\u0000\u0000\u0000lj\u0001\u0000\u0000\u0000"+
 		"lm\u0001\u0000\u0000\u0000m\u000f\u0001\u0000\u0000\u0000nl\u0001\u0000"+
@@ -1577,7 +1597,7 @@ public class minhaGramaticaParser extends Parser {
 		"\u0000\u0000\u0080r\u0001\u0000\u0000\u0000\u0080u\u0001\u0000\u0000\u0000"+
 		"\u0080v\u0001\u0000\u0000\u0000\u0080w\u0001\u0000\u0000\u0000\u0080z"+
 		"\u0001\u0000\u0000\u0000\u0080}\u0001\u0000\u0000\u0000\u0081\u0011\u0001"+
-		"\u0000\u0000\u0000\u0082\u0083\u0005\u0019\u0000\u0000\u0083\u0084\u0005"+
+		"\u0000\u0000\u0000\u0082\u0083\u0005\u001c\u0000\u0000\u0083\u0084\u0005"+
 		"\u0012\u0000\u0000\u0084\u0085\u0003\"\u0011\u0000\u0085\u0013\u0001\u0000"+
 		"\u0000\u0000\u0086\u0087\u0005\u0004\u0000\u0000\u0087\u0088\u0005\u0016"+
 		"\u0000\u0000\u0088\u0089\u0003\"\u0011\u0000\u0089\u008a\u0005\u0017\u0000"+
@@ -1613,7 +1633,7 @@ public class minhaGramaticaParser extends Parser {
 		"\u0000\u0000\u00bf\u00c2\u0003\f\u0006\u0000\u00c0\u00c2\u0003\u0012\t"+
 		"\u0000\u00c1\u00bf\u0001\u0000\u0000\u0000\u00c1\u00c0\u0001\u0000\u0000"+
 		"\u0000\u00c2\u0019\u0001\u0000\u0000\u0000\u00c3\u00c4\u0003\u0012\t\u0000"+
-		"\u00c4\u001b\u0001\u0000\u0000\u0000\u00c5\u00c6\u0005\u0019\u0000\u0000"+
+		"\u00c4\u001b\u0001\u0000\u0000\u0000\u00c5\u00c6\u0005\u001c\u0000\u0000"+
 		"\u00c6\u00c8\u0005\u0016\u0000\u0000\u00c7\u00c9\u0003 \u0010\u0000\u00c8"+
 		"\u00c7\u0001\u0000\u0000\u0000\u00c8\u00c9\u0001\u0000\u0000\u0000\u00c9"+
 		"\u00ca\u0001\u0000\u0000\u0000\u00ca\u00cb\u0005\u0017\u0000\u0000\u00cb"+
@@ -1632,9 +1652,9 @@ public class minhaGramaticaParser extends Parser {
 		"\u0000\u0000\u00e3\u00e6\u0001\u0000\u0000\u0000\u00e4\u00e2\u0001\u0000"+
 		"\u0000\u0000\u00e4\u00e5\u0001\u0000\u0000\u0000\u00e5%\u0001\u0000\u0000"+
 		"\u0000\u00e6\u00e4\u0001\u0000\u0000\u0000\u00e7\u00e8\u0005\u0011\u0000"+
-		"\u0000\u00e8\u00f3\u0003&\u0013\u0000\u00e9\u00f3\u0005\u0019\u0000\u0000"+
-		"\u00ea\u00f3\u0005\u001a\u0000\u0000\u00eb\u00f3\u0005\u001b\u0000\u0000"+
-		"\u00ec\u00f3\u0005\u001c\u0000\u0000\u00ed\u00ee\u0005\u0016\u0000\u0000"+
+		"\u0000\u00e8\u00f3\u0003&\u0013\u0000\u00e9\u00f3\u0005\u001c\u0000\u0000"+
+		"\u00ea\u00f3\u0005\u0019\u0000\u0000\u00eb\u00f3\u0005\u001a\u0000\u0000"+
+		"\u00ec\u00f3\u0005\u001b\u0000\u0000\u00ed\u00ee\u0005\u0016\u0000\u0000"+
 		"\u00ee\u00ef\u0003\"\u0011\u0000\u00ef\u00f0\u0005\u0017\u0000\u0000\u00f0"+
 		"\u00f3\u0001\u0000\u0000\u0000\u00f1\u00f3\u0003\u001c\u000e\u0000\u00f2"+
 		"\u00e7\u0001\u0000\u0000\u0000\u00f2\u00e9\u0001\u0000\u0000\u0000\u00f2"+

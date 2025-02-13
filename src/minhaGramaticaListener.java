@@ -19,25 +19,29 @@ public interface minhaGramaticaListener extends ParseTreeListener {
 	 */
 	void exitNInicio(minhaGramaticaParser.NInicioContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link minhaGramaticaParser#principal}.
+	 * Enter a parse tree produced by the {@code NPrincipal}
+	 * labeled alternative in {@link minhaGramaticaParser#principal}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrincipal(minhaGramaticaParser.PrincipalContext ctx);
+	void enterNPrincipal(minhaGramaticaParser.NPrincipalContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link minhaGramaticaParser#principal}.
+	 * Exit a parse tree produced by the {@code NPrincipal}
+	 * labeled alternative in {@link minhaGramaticaParser#principal}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrincipal(minhaGramaticaParser.PrincipalContext ctx);
+	void exitNPrincipal(minhaGramaticaParser.NPrincipalContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link minhaGramaticaParser#funcao}.
+	 * Enter a parse tree produced by the {@code NFuncao}
+	 * labeled alternative in {@link minhaGramaticaParser#funcao}.
 	 * @param ctx the parse tree
 	 */
-	void enterFuncao(minhaGramaticaParser.FuncaoContext ctx);
+	void enterNFuncao(minhaGramaticaParser.NFuncaoContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link minhaGramaticaParser#funcao}.
+	 * Exit a parse tree produced by the {@code NFuncao}
+	 * labeled alternative in {@link minhaGramaticaParser#funcao}.
 	 * @param ctx the parse tree
 	 */
-	void exitFuncao(minhaGramaticaParser.FuncaoContext ctx);
+	void exitNFuncao(minhaGramaticaParser.NFuncaoContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link minhaGramaticaParser#parametros}.
 	 * @param ctx the parse tree
@@ -69,29 +73,27 @@ public interface minhaGramaticaListener extends ParseTreeListener {
 	 */
 	void exitDeclaracoes(minhaGramaticaParser.DeclaracoesContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NDeclaracaoVar}
+	 * Enter a parse tree produced by the {@code NDeclaracaoValor}
 	 * labeled alternative in {@link minhaGramaticaParser#declaracao_var}.
 	 * @param ctx the parse tree
 	 */
-	void enterNDeclaracaoVar(minhaGramaticaParser.NDeclaracaoVarContext ctx);
+	void enterNDeclaracaoValor(minhaGramaticaParser.NDeclaracaoValorContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NDeclaracaoVar}
+	 * Exit a parse tree produced by the {@code NDeclaracaoValor}
 	 * labeled alternative in {@link minhaGramaticaParser#declaracao_var}.
 	 * @param ctx the parse tree
 	 */
-	void exitNDeclaracaoVar(minhaGramaticaParser.NDeclaracaoVarContext ctx);
+	void exitNDeclaracaoValor(minhaGramaticaParser.NDeclaracaoValorContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NComandos}
-	 * labeled alternative in {@link minhaGramaticaParser#comandos}.
+	 * Enter a parse tree produced by {@link minhaGramaticaParser#comandos}.
 	 * @param ctx the parse tree
 	 */
-	void enterNComandos(minhaGramaticaParser.NComandosContext ctx);
+	void enterComandos(minhaGramaticaParser.ComandosContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NComandos}
-	 * labeled alternative in {@link minhaGramaticaParser#comandos}.
+	 * Exit a parse tree produced by {@link minhaGramaticaParser#comandos}.
 	 * @param ctx the parse tree
 	 */
-	void exitNComandos(minhaGramaticaParser.NComandosContext ctx);
+	void exitComandos(minhaGramaticaParser.ComandosContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link minhaGramaticaParser#comando}.
 	 * @param ctx the parse tree
@@ -155,15 +157,17 @@ public interface minhaGramaticaListener extends ParseTreeListener {
 	 */
 	void exitAtualizacao(minhaGramaticaParser.AtualizacaoContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link minhaGramaticaParser#chamada_funcao}.
+	 * Enter a parse tree produced by the {@code NChamada_funcao}
+	 * labeled alternative in {@link minhaGramaticaParser#chamada_funcao}.
 	 * @param ctx the parse tree
 	 */
-	void enterChamada_funcao(minhaGramaticaParser.Chamada_funcaoContext ctx);
+	void enterNChamada_funcao(minhaGramaticaParser.NChamada_funcaoContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link minhaGramaticaParser#chamada_funcao}.
+	 * Exit a parse tree produced by the {@code NChamada_funcao}
+	 * labeled alternative in {@link minhaGramaticaParser#chamada_funcao}.
 	 * @param ctx the parse tree
 	 */
-	void exitChamada_funcao(minhaGramaticaParser.Chamada_funcaoContext ctx);
+	void exitNChamada_funcao(minhaGramaticaParser.NChamada_funcaoContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link minhaGramaticaParser#retorno}.
 	 * @param ctx the parse tree
